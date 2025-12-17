@@ -5,24 +5,29 @@ public class PlayerMovement : MonoBehaviour
 {
     [Header("Movement")]
     [SerializeField] private float moveSpeed = 5f;
-    [SerializeField] private float sprintMultiplier = 1.5f;
     [SerializeField] private float rotationSpeed = 10f;
 
     [Header("References")]
     [SerializeField] private Transform cameraTransform;
 
     private Rigidbody _rigidBody;
+    private Animator _animator;
     private Vector2 _moveInput;
     private Vector3 _moveDirection;
-    private bool _isRunning;
 
     private void Awake()
     {
         _rigidBody = GetComponent<Rigidbody>();
+        _animator = GetComponent<Animator>();
     }
 
     private void FixedUpdate()
     {
+        float inputMagnitude = _moveInput.magnitude;
+        inputMagnitude = Mathf.Clamp01(inputMagnitude);
+
+        Vector2 inputDirection = _moveInput.normalized;
+
         // Calculate movement direction relative to camera
         Vector3 cameraForward = cameraTransform.forward;
         Vector3 cameraRight = cameraTransform.right;
@@ -33,12 +38,12 @@ public class PlayerMovement : MonoBehaviour
         cameraRight.Normalize();
 
         // Calculate movement direction
-        _moveDirection = cameraForward * _moveInput.y + cameraRight * _moveInput.x;
+        _moveDirection = cameraForward * inputDirection.y + cameraRight * inputDirection.x;
 
         // Apply movement
-        _moveDirection *= _isRunning ? moveSpeed * sprintMultiplier : moveSpeed;
+        Vector3 velocity = _moveDirection * (moveSpeed * inputMagnitude);
 
-        _rigidBody.linearVelocity = _moveDirection;
+        _rigidBody.linearVelocity = new Vector3(velocity.x, _rigidBody.linearVelocity.y, velocity.z);
 
         // Rotate player to face movement direction
         if (_moveDirection.magnitude > 0.1f)
@@ -46,15 +51,13 @@ public class PlayerMovement : MonoBehaviour
             Quaternion targetRotation = Quaternion.LookRotation(_moveDirection);
             transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.fixedDeltaTime);
         }
+
+        _animator.SetFloat("InputX", _moveInput.x);
+        _animator.SetFloat("InputY", _moveInput.y);
     }
 
     public void OnMove(InputValue value)
     {
         _moveInput = value.Get<Vector2>();
-    }
-
-    public void OnSprint(InputValue value)
-    {
-        _isRunning = value.isPressed;
     }
 }
