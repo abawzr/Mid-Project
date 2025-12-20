@@ -144,22 +144,15 @@ public class EnemyAI : MonoBehaviour
 
         if (Time.time - _lastAttackTime >= attackCooldown)
         {
-            PerformAttack();
+            PerformAttackAnimation();
             _lastAttackTime = Time.time;
         }
     }
 
-    private void PerformAttack()
+    private void PerformAttackAnimation()
     {
         int randomAnimation = Random.Range(1, 4);
-
         _animator.SetTrigger($"Attack{randomAnimation}");
-
-        PlayerHealth playerHealth = _playerTransform.GetComponent<PlayerHealth>();
-        if (playerHealth != null)
-        {
-            playerHealth.TakeDamage(attackDamage);
-        }
     }
 
     private void SetNewPatrolPoint()
@@ -178,5 +171,14 @@ public class EnemyAI : MonoBehaviour
     {
         float speed = _agent.velocity.magnitude / chaseSpeed;
         _animator.SetFloat("Speed", Mathf.Clamp01(speed));
+    }
+
+    public void DealDamageToPlayer()
+    {
+        PlayerHealth playerHealth = _playerTransform.GetComponent<PlayerHealth>();
+        if (playerHealth != null)
+        {
+            playerHealth.TakeDamage(attackDamage);
+        }
     }
 }
