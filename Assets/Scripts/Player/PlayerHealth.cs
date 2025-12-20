@@ -10,6 +10,8 @@ public class PlayerHealth : MonoBehaviour
     public static event Action<float, float> OnHealthChanged; // (current, max)
     public static event Action OnPlayerDeath;
 
+    public float CurrentHealth => _currentHealth;
+
     private void Awake()
     {
         _currentHealth = maxHealth;
@@ -31,10 +33,6 @@ public class PlayerHealth : MonoBehaviour
 
         // Play death animation
         // GetComponent<Animator>().SetTrigger("Death");
-
-
-        // Respawn after delay
-        // Invoke("Respawn", 2f);
     }
 
     public void TakeDamage(float damage)

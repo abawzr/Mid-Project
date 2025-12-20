@@ -21,9 +21,14 @@ public class PlayerMovement : MonoBehaviour
         _animator = GetComponent<Animator>();
     }
 
-    private void Start()
+    private void OnEnable()
     {
         PlayerAttack.OnPlayerAttack += StopMovementWhenAttacking;
+    }
+
+    private void OnDisable()
+    {
+        PlayerAttack.OnPlayerAttack -= StopMovementWhenAttacking;
     }
 
     private void FixedUpdate()
