@@ -12,6 +12,7 @@ public class PlayerMovement : MonoBehaviour
 
     private Rigidbody _rigidBody;
     private Animator _animator;
+    private PlayerDodge _playerDodge;
     private Vector2 _moveInput;
     private Vector3 _moveDirection;
 
@@ -19,6 +20,7 @@ public class PlayerMovement : MonoBehaviour
     {
         _rigidBody = GetComponent<Rigidbody>();
         _animator = GetComponent<Animator>();
+        _playerDodge = GetComponent<PlayerDodge>();
     }
 
     private void OnEnable()
@@ -42,6 +44,12 @@ public class PlayerMovement : MonoBehaviour
 
     private void ApplyMovement()
     {
+        // Don't move if dodging
+        if (_playerDodge != null && _playerDodge.IsDodging)
+        {
+            return;
+        }
+
         float inputMagnitude = _moveInput.magnitude;
         inputMagnitude = Mathf.Clamp01(inputMagnitude);
 

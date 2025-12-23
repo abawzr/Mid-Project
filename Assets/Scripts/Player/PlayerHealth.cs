@@ -6,6 +6,7 @@ public class PlayerHealth : MonoBehaviour
     [SerializeField] private float maxHealth = 100f;
 
     private float _currentHealth;
+    private bool _isInvincible = false;
 
     public static event Action<float, float> OnHealthChanged; // (current, max)
     public static event Action OnPlayerDeath;
@@ -39,8 +40,14 @@ public class PlayerHealth : MonoBehaviour
     {
         if (_currentHealth <= 0) return;
 
+        if (_isInvincible)
+        {
+            Debug.Log("Player is invincible! No damage taken.");
+            return;
+        }
+
         _currentHealth -= damage;
-        _currentHealth = Mathf.Max(_currentHealth, 0); // Clamp to 0
+        _currentHealth = Mathf.Max(_currentHealth, 0);
 
         OnHealthChanged?.Invoke(_currentHealth, maxHealth);
 
@@ -62,7 +69,6 @@ public class PlayerHealth : MonoBehaviour
 
     public void Respawn(Vector3 spawnPosition)
     {
-        _currentHealth = maxHealth;
         transform.position = spawnPosition;
 
         // Re-enable controls
@@ -70,6 +76,12 @@ public class PlayerHealth : MonoBehaviour
         GetComponent<PlayerAttack>().enabled = true;
         GetComponent<PlayerJump>().enabled = true;
 
+        _currentHealth = maxHealth;
         OnHealthChanged?.Invoke(_currentHealth, maxHealth);
+    }
+
+    public void SetInvincible(bool invincible)
+    {
+        _isInvincible = invincible;
     }
 }

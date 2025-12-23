@@ -9,6 +9,7 @@ public class PlayerAttack : MonoBehaviour
 
     private Animator _animator;
     private PlayerHealth _playerHealth;
+    private PlayerDodge _playerDodge;
     private float _lastAttackTime;
     private bool _isAttacking = false;
 
@@ -20,11 +21,18 @@ public class PlayerAttack : MonoBehaviour
     {
         _animator = GetComponent<Animator>();
         _playerHealth = GetComponent<PlayerHealth>();
+        _playerDodge = GetComponent<PlayerDodge>();
     }
 
     public void OnAttack(InputValue value)
     {
         if (!value.isPressed) return;
+
+        // Can't attack when dodging
+        if (_playerDodge != null && _playerDodge.IsDodging)
+        {
+            return;
+        }
 
         // Can't attack if dead
         if (_playerHealth != null && _playerHealth.CurrentHealth <= 0)
