@@ -31,7 +31,7 @@ public class EnemyHealth : MonoBehaviour
         _currentHealth -= damage;
         _currentHealth = Mathf.Max(_currentHealth, 0);
 
-        if (_animator != null)
+        if (_animator != null && _currentHealth > 0)
         {
             _animator.SetTrigger("Hit");
         }

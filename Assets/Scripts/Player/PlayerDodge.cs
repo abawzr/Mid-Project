@@ -9,9 +9,9 @@ public class PlayerDodge : MonoBehaviour
     [SerializeField] private float dodgeCooldown = 1f;
     [SerializeField] private float invincibilityDuration = 0.5f;
 
-    private Rigidbody _rigidBody;
+    private CharacterController _characterController;
     private Animator _animator;
-    private PlayerHealth _playerHealth;
+    private PlayerReferences _playerReferences;
     private bool _isDodging = false;
     private bool _canDodge = true;
     private float _dodgeTimer = 0f;
@@ -21,30 +21,27 @@ public class PlayerDodge : MonoBehaviour
 
     private void Awake()
     {
-        _rigidBody = GetComponent<Rigidbody>();
+        _characterController = GetComponent<CharacterController>();
         _animator = GetComponent<Animator>();
-        _playerHealth = GetComponent<PlayerHealth>();
+        _playerReferences = GetComponent<PlayerReferences>();
     }
 
     private void Update()
     {
         if (_isDodging)
         {
+            _characterController.Move(new Vector3(
+                _dodgeDirection.x * dodgeDistance / dodgeDuration,
+                0,
+                _dodgeDirection.z * dodgeDistance / dodgeDuration
+            ) * Time.deltaTime);
+
             _dodgeTimer += Time.deltaTime;
 
             if (_dodgeTimer >= dodgeDuration)
             {
                 EndDodge();
             }
-        }
-    }
-
-    private void FixedUpdate()
-    {
-        if (_isDodging)
-        {
-            // Apply dodge movement
-            _rigidBody.linearVelocity = new Vector3(_dodgeDirection.x * dodgeDistance / dodgeDuration, _rigidBody.linearVelocity.y, _dodgeDirection.z * dodgeDistance / dodgeDuration);
         }
     }
 
@@ -55,8 +52,7 @@ public class PlayerDodge : MonoBehaviour
         _dodgeTimer = 0f;
 
         // Get dodge direction (current movement direction or backward if not moving)
-        PlayerMovement movement = GetComponent<PlayerMovement>();
-        if (movement != null)
+        if (_playerReferences.Movement != null)
         {
             // Dodge in the direction player is facing
             _dodgeDirection = transform.forward;
@@ -73,9 +69,9 @@ public class PlayerDodge : MonoBehaviour
         }
 
         // Enable invincibility
-        if (_playerHealth != null)
+        if (_playerReferences.Health != null)
         {
-            _playerHealth.SetInvincible(true);
+            _playerReferences.Health.SetInvincible(true);
         }
     }
 
@@ -84,7 +80,7 @@ public class PlayerDodge : MonoBehaviour
         _isDodging = false;
 
         // Disable invincibility
-        if (_playerHealth != null)
+        if (_playerReferences.Health != null)
         {
             Invoke(nameof(DisableInvincibility), invincibilityDuration);
         }
@@ -95,9 +91,9 @@ public class PlayerDodge : MonoBehaviour
 
     private void DisableInvincibility()
     {
-        if (_playerHealth != null)
+        if (_playerReferences.Health != null)
         {
-            _playerHealth.SetInvincible(false);
+            _playerReferences.Health.SetInvincible(false);
         }
     }
 
@@ -108,9 +104,12 @@ public class PlayerDodge : MonoBehaviour
 
     public void OnDodge(InputValue value)
     {
-        if (value.isPressed && _canDodge && !_isDodging)
-        {
-            StartDodge();
-        }
+        if (!value.isPressed) return;
+        if (!_canDodge) return;
+        if (_isDodging) return;
+        if (!_playerReferences.Movement.IsGrounded) return;
+        if (_playerReferences.Attack.IsAttacking) return;
+
+        StartDodge();
     }
 }

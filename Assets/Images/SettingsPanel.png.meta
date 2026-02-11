@@ -43,13 +43,13 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
   spritePixelsToUnits: 100
-  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteBorder: {x: 20, y: 0, z: 4, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
   alphaIsTransparency: 1
@@ -95,21 +95,86 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: SettingsPanel_0
+      rect:
+        serializedVersion: 2
+        x: 20
+        y: 0
+        width: 702
+        height: 1023
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 599befe357692fc4ca5c3f1847677f02
+      internalID: -2121559252
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     customData: 
     physicsShape: []
     bones: []
     spriteID: 5e97eb03825dee720800000000000000
-    internalID: 0
+    internalID: 1537655665
     vertices: []
     indices: 
     edges: []
     weights: []
     secondaryTextures: []
     spriteCustomMetadata:
-      entries: []
-    nameFileIdTable: {}
+      entries:
+      - key: SpriteEditor.SliceSettings
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":64.0,"y":64.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":0,"keepEmptyRects":false,"isAlternate":false}'
+    nameFileIdTable:
+      SettingsPanel_0: -2121559252
+      SettingsPanel_1: 570795138
+      SettingsPanel_10: -2120889601
+      SettingsPanel_11: -635989797
+      SettingsPanel_12: 1662754081
+      SettingsPanel_13: -1279518573
+      SettingsPanel_14: 1555028855
+      SettingsPanel_15: 926731876
+      SettingsPanel_16: 64621343
+      SettingsPanel_17: -2079181309
+      SettingsPanel_18: 1596631465
+      SettingsPanel_19: -1085441795
+      SettingsPanel_2: -878286510
+      SettingsPanel_20: -1423034878
+      SettingsPanel_21: -268610059
+      SettingsPanel_22: -817679991
+      SettingsPanel_23: 162214933
+      SettingsPanel_24: 1672966537
+      SettingsPanel_25: 135729364
+      SettingsPanel_26: 1716176074
+      SettingsPanel_27: 399486196
+      SettingsPanel_28: 1705511959
+      SettingsPanel_29: -401815041
+      SettingsPanel_3: -2073675724
+      SettingsPanel_30: 1073289196
+      SettingsPanel_31: 1436472439
+      SettingsPanel_32: -221702004
+      SettingsPanel_33: -1320297079
+      SettingsPanel_34: -493777050
+      SettingsPanel_35: -134914642
+      SettingsPanel_36: -1084898919
+      SettingsPanel_37: 2098359959
+      SettingsPanel_38: -1676230352
+      SettingsPanel_39: 719883894
+      SettingsPanel_4: -1154574827
+      SettingsPanel_40: 670556347
+      SettingsPanel_5: 2076422783
+      SettingsPanel_6: -984757600
+      SettingsPanel_7: -275428334
+      SettingsPanel_8: -496292293
+      SettingsPanel_9: 649121039
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

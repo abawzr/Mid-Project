@@ -1,0 +1,112 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &7507523669505355530
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4561534493906919587}
+  - component: {fileID: 3239184580232172509}
+  - component: {fileID: 7723358418311283249}
+  m_Layer: 0
+  m_Name: Managers
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4561534493906919587
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7507523669505355530}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3239184580232172509
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7507523669505355530}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 126fe39742eccc442a6a58a378bf2302, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::GameManager
+  spawnPoint: {x: 0, y: 0.3, z: 0}
+  respawnDelay: 2
+  mainMenuPanel: {fileID: 0}
+  settingsPanel: {fileID: 0}
+  menuCamera: {fileID: 0}
+  gameplayCamera: {fileID: 0}
+  introTimeline: {fileID: 0}
+  menuCanvasGroup: {fileID: 0}
+  brainTarget: {fileID: 0}
+  fadePanel: {fileID: 0}
+  videoDisplay: {fileID: 0}
+  videoPlayer: {fileID: 0}
+  cutsceneVideo: {fileID: 32900000, guid: 22f7c265c9433a7488588d9c091b942b, type: 3}
+  skipButton: {fileID: 0}
+  menuFadeDuration: 1
+  zoomDuration: 2
+  zoomDistance: 0.1
+  zoomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  _playerReferences: {fileID: 0}
+  healthBar: {fileID: 0}
+  menuMusicSource: {fileID: 0}
+  audioMixer: {fileID: 24100000, guid: 6165b76ef2310664f9a159098a3f0c50, type: 2}
+  mixerVolumeParameter: MasterVolume
+  playerAnimator: {fileID: 0}
+  standUpTrigger: StartGame
+  standUpAnimationDuration: 3.1
+--- !u!114 &7723358418311283249
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7507523669505355530}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b26ed5e87029ec4db96bb93a7a6f6f9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AudioSettings
+  audioMixer: {fileID: 24100000, guid: 6165b76ef2310664f9a159098a3f0c50, type: 2}
+  masterSlider: {fileID: 0}
+  musicSlider: {fileID: 0}
+  sfxSlider: {fileID: 0}

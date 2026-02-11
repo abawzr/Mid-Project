@@ -152,7 +152,7 @@ public class EnemyAI : MonoBehaviour
     private void PerformAttackAnimation()
     {
         int randomAnimation = Random.Range(1, 4);
-        _animator.SetTrigger($"Attack{randomAnimation}");
+        _animator.SetTrigger($"Attack{1}");
     }
 
     private void SetNewPatrolPoint()

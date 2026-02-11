@@ -5,6 +5,8 @@ public class PlayerHealth : MonoBehaviour
 {
     [SerializeField] private float maxHealth = 100f;
 
+    private PlayerReferences _playerReferences;
+    private Animator _animator;
     private float _currentHealth;
     private bool _isInvincible = false;
 
@@ -16,6 +18,8 @@ public class PlayerHealth : MonoBehaviour
     private void Awake()
     {
         _currentHealth = maxHealth;
+        _animator = GetComponent<Animator>();
+        _playerReferences = GetComponent<PlayerReferences>();
     }
 
     private void Start()
@@ -28,26 +32,27 @@ public class PlayerHealth : MonoBehaviour
         OnPlayerDeath?.Invoke();
 
         // Disable player controls
-        GetComponent<PlayerMovement>().enabled = false;
-        GetComponent<PlayerAttack>().enabled = false;
-        GetComponent<PlayerJump>().enabled = false;
+        _playerReferences.SetReferencesEnabled(false);
 
         // Play death animation
-        // GetComponent<Animator>().SetTrigger("Death");
+        _animator.SetTrigger("Die");
     }
 
+    [ContextMenu("Take Hit 25")] private void TestDamage25() => TakeDamage(25f);
     public void TakeDamage(float damage)
     {
         if (_currentHealth <= 0) return;
 
         if (_isInvincible)
         {
-            Debug.Log("Player is invincible! No damage taken.");
             return;
         }
 
         _currentHealth -= damage;
         _currentHealth = Mathf.Max(_currentHealth, 0);
+
+        if (_currentHealth > 0)
+            _animator.SetTrigger("Hit");
 
         OnHealthChanged?.Invoke(_currentHealth, maxHealth);
 
@@ -72,9 +77,7 @@ public class PlayerHealth : MonoBehaviour
         transform.position = spawnPosition;
 
         // Re-enable controls
-        GetComponent<PlayerMovement>().enabled = true;
-        GetComponent<PlayerAttack>().enabled = true;
-        GetComponent<PlayerJump>().enabled = true;
+        _playerReferences.SetReferencesEnabled(true);
 
         _currentHealth = maxHealth;
         OnHealthChanged?.Invoke(_currentHealth, maxHealth);
